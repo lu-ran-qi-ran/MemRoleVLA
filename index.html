@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MemRoleVLA: Memory-Grounded Skill and Role Inference for Long-Horizon Bimanual Manipulation">
+  <meta name="theme-color" content="#ffffff">
+  <title>MemRoleVLA: Memory-Grounded Skill and Role Inference for Long-Horizon Bimanual Manipulation</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="site-config.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="nav-brand" href="#top">MemRoleVLA<span aria-hidden="true">.</span></a>
+      <div class="nav-links">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#experiments">Experiments</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="top" aria-labelledby="paper-title">
+      <h1 id="paper-title">
+        <span class="wordmark">MemRoleVLA<span class="sr-only">:</span></span>
+        <span class="paper-title">Memory-Grounded Skill and Role Inference<br class="desktop-break"> for Long-Horizon Bimanual Manipulation</span>
+      </h1>
+      <p class="authors">Anonymous CVPR submission</p>
+      <div class="hero-links">
+        <a class="pill pill-dark" href="assets/MemRoleVLA.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v6h5M8 14h8M8 17h5"/></svg>
+          Paper
+        </a>
+        <a class="pill pill-light" href="#video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7z"/></svg>
+          Video
+        </a>
+      </div>
+    </section>
+
+    <section class="video-section container" id="video" aria-label="Video">
+      <div class="video-frame">
+        <div class="video-placeholder" id="video-placeholder" role="img" aria-label="Reserved space for one video">
+          <span class="video-symbol" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9 5 11 7-11 7z"/></svg>
+          </span>
+          <span class="video-label">Video</span>
+        </div>
+        <video id="project-video" controls playsinline preload="metadata" aria-label="MemRoleVLA video" hidden></video>
+      </div>
+      <p class="video-error" id="video-error" role="status" hidden>Video could not be loaded.</p>
+    </section>
+
+    <section class="section section-tint" id="abstract" aria-labelledby="abstract-title">
+      <div class="text-container">
+        <h2 id="abstract-title">Abstract</h2>
+        <p class="body-copy">In long-horizon bimanual manipulation, what to do next and which arm should execute it depend on which steps have already been completed, rather than only on the current observation window. Policies with short observation windows may advance before a step is complete or initiate recovery at an inappropriate moment. Existing atomic-skill methods do not explicitly exploit the history of online-confirmed completed events and therefore remain vulnerable to repetitive tasks and visual aliasing. We propose MemRoleVLA, a vision–language–action model that grounds step, skill, and role inference in confirmed event memory to guide atomic-skill action experts. A step-completion head estimates whether the active step has reached its goal; after continuous confirmation, the execution manager commits an evidence keyframe to memory through an idempotent single-write operation. The event memory is fused with the current observation to infer the next step, atomic skill, and execution role. The skill posterior routes shared action experts, while a role-conditioned action prior guides bimanual action generation. An event-value head, trained with successful demonstrations and outcome-labeled autonomous rollouts, estimates whether the current attempt can still succeed within its execution budget and supports bounded recovery together with observed goal-state changes. On real-world memory-dependent bimanual tasks, MemRoleVLA improves average success by 37.5 and 25.3 percentage points over π<sub>0.5</sub> and AtomicVLA*, respectively. Here * denotes our bimanual reproduction of AtomicVLA.</p>
+      </div>
+    </section>
+
+    <section class="section method-section" id="method" aria-labelledby="method-title">
+      <div class="container">
+        <h2 id="method-title">Method</h2>
+        <figure class="framework-figure">
+          <a class="figure-link" href="assets/framework.png" target="_blank" rel="noopener" aria-label="Open the overall framework of MemRoleVLA at full size">
+            <img src="assets/framework.png" width="1989" height="1014" loading="lazy" alt="Overall framework of MemRoleVLA: offline annotation and verification; confirmed event memory; step, skill, and role inference; completion and event-value heads; recovery management; shared action experts; and a role-conditioned action decoder.">
+            <span class="expand-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/></svg></span>
+          </a>
+          <figcaption><strong>Figure 2. Overall framework of MemRoleVLA.</strong> Confirmed event memory and the current observation jointly infer the next step, atomic skill, and execution role. The skill posterior routes shared action experts, the role posterior constructs a role-conditioned action prior, and the step-completion and event-value heads support bounded continue–complete–recover management.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section-tint results-section" id="experiments" aria-labelledby="experiments-title">
+      <div class="container">
+        <h2 id="experiments-title">Experiments</h2>
+        <p class="results-intro">MemRoleVLA reaches 75.5% average success versus 38.0% for π<sub>0.5</sub> and 50.25% for AtomicVLA*.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="End-to-end success results, scroll horizontally on small screens">
+          <table>
+            <caption class="sr-only">End-to-end success on four memory-dependent long-horizon tasks.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Sorting</th>
+                <th scope="col">Food</th>
+                <th scope="col">Drawer</th>
+                <th scope="col">Wiping</th>
+                <th scope="col">Avg. Success (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">π<sub>0.5</sub></th><td>40/100</td><td>38/100</td><td>31/100</td><td>43/100</td><td>38.00</td></tr>
+              <tr><th scope="row">AtomicVLA*</th><td>55/100</td><td>52/100</td><td>49/100</td><td>45/100</td><td>50.25</td></tr>
+              <tr class="ours"><th scope="row">MemRoleVLA</th><td>80/100</td><td>76/100</td><td>76/100</td><td>70/100</td><td>75.50</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note"><strong>Table 2. End-to-end success on four memory-dependent long-horizon tasks.</strong> Task entries report successes/trials, aggregated over five training seeds with 20 real-robot trials per seed. AtomicVLA* denotes our bimanual reproduction of AtomicVLA.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <a href="#top" aria-label="MemRoleVLA, back to top">MemRoleVLA<span aria-hidden="true"> ↑</span></a>
+  </footer>
+</body>
+</html>
